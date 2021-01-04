@@ -1822,7 +1822,7 @@ library EnumerableMap {
     }
 }
 
-/** @dev Replace _CONTRACT_NAME with your contract name, and "TOKENXX" with your token name. */
+/** @dev Replace _CONTRACT_NAME with your contract name, and "IDXX" with your token name. */
 
 contract _CONTRACT_NAME is ERC1155 {
     uint256 public constant ID01 = 1;
