@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-  /** @dev This ERC-1155 contract is flattened for ease of deployment and has been developed    
+ /** @dev This ERC-1155 contract is flattened for ease of deployment and has been developed    
    * specifically with artists in mind who want to mint non-fungible tokens but want to avail 
    * of the protocol's batch transfer function. Token variables are at the bottom of this contract
    * 
@@ -9,7 +9,6 @@
 pragma solidity >=0.6.0 <0.8.0;
 
 
- 
 interface IERC165 {
     /**
      * @dev Returns true if this contract implements the interface defined by
@@ -26,16 +25,9 @@ interface IERC165 {
 
 pragma solidity >=0.6.2 <0.8.0;
 
-/**
- * @dev Required interface of an ERC1155 compliant contract, as defined in the
- * https://eips.ethereum.org/EIPS/eip-1155[EIP].
- *
- * _Available since v3.1._
- */
+
 interface IERC1155 is IERC165 {
-    /**
-     * @dev Emitted when `value` tokens of token type `id` are transferred from `from` to `to` by `operator`.
-     */
+    
     event TransferSingle(
         address indexed operator,
         address indexed from,
@@ -189,19 +181,7 @@ pragma solidity >=0.6.0 <0.8.0;
  * _Available since v3.1._
  */
 interface IERC1155Receiver is IERC165 {
-    /**
-        @dev Handles the receipt of a single ERC1155 token type. This function is
-        called at the end of a `safeTransferFrom` after the balance has been updated.
-        To accept the transfer, this must return
-        `bytes4(keccak256("onERC1155Received(address,address,uint256,uint256,bytes)"))`
-        (i.e. 0xf23a6e61, or its own function selector).
-        @param operator The address which initiated the transfer (i.e. msg.sender)
-        @param from The address which previously owned the token
-        @param id The ID of the token being transferred
-        @param value The amount of tokens being transferred
-        @param data Additional data with no specified format
-        @return `bytes4(keccak256("onERC1155Received(address,address,uint256,uint256,bytes)"))` if transfer is allowed
-    */
+    
     function onERC1155Received(
         address operator,
         address from,
@@ -210,19 +190,7 @@ interface IERC1155Receiver is IERC165 {
         bytes calldata data
     ) external returns (bytes4);
 
-    /**
-        @dev Handles the receipt of a multiple ERC1155 token types. This function
-        is called at the end of a `safeBatchTransferFrom` after the balances have
-        been updated. To accept the transfer(s), this must return
-        `bytes4(keccak256("onERC1155BatchReceived(address,address,uint256[],uint256[],bytes)"))`
-        (i.e. 0xbc197c81, or its own function selector).
-        @param operator The address which initiated the batch transfer (i.e. msg.sender)
-        @param from The address which previously owned the token
-        @param ids An array containing ids of each token being transferred (order and length must match values array)
-        @param values An array containing amounts of each token being transferred (order and length must match ids array)
-        @param data Additional data with no specified format
-        @return `bytes4(keccak256("onERC1155BatchReceived(address,address,uint256[],uint256[],bytes)"))` if transfer is allowed
-    */
+    
     function onERC1155BatchReceived(
         address operator,
         address from,
@@ -236,16 +204,7 @@ interface IERC1155Receiver is IERC165 {
 
 pragma solidity >=0.6.0 <0.8.0;
 
-/*
- * @dev Provides information about the current execution context, including the
- * sender of the transaction and its data. While these are generally available
- * via msg.sender and msg.data, they should not be accessed in such a direct
- * manner, since when dealing with GSN meta-transactions the account sending and
- * paying for execution may not be the actual sender (as far as an application
- * is concerned).
- *
- * This contract is only required for intermediate, library-like contracts.
- */
+
 abstract contract Context {
     function _msgSender() internal view virtual returns (address payable) {
         return msg.sender;
@@ -261,12 +220,7 @@ abstract contract Context {
 
 pragma solidity >=0.6.0 <0.8.0;
 
-/**
- * @dev Implementation of the {IERC165} interface.
- *
- * Contracts may inherit from this and call {_registerInterface} to declare
- * their support of an interface.
- */
+
 abstract contract ERC165 is IERC165 {
     /*
      * bytes4(keccak256('supportsInterface(bytes4)')) == 0x01ffc9a7
@@ -298,17 +252,7 @@ abstract contract ERC165 is IERC165 {
         return _supportedInterfaces[interfaceId];
     }
 
-    /**
-     * @dev Registers the contract as an implementer of the interface defined by
-     * `interfaceId`. Support of the actual ERC165 interface is automatic and
-     * registering its interface id is not required.
-     *
-     * See {IERC165-supportsInterface}.
-     *
-     * Requirements:
-     *
-     * - `interfaceId` cannot be the ERC165 invalid interface (`0xffffffff`).
-     */
+    
     function _registerInterface(bytes4 interfaceId) internal virtual {
         require(interfaceId != 0xffffffff, "ERC165: invalid interface id");
         _supportedInterfaces[interfaceId] = true;
@@ -319,19 +263,7 @@ abstract contract ERC165 is IERC165 {
 
 pragma solidity >=0.6.0 <0.8.0;
 
-/**
- * @dev Wrappers over Solidity's arithmetic operations with added overflow
- * checks.
- *
- * Arithmetic operations in Solidity wrap on overflow. This can easily result
- * in bugs, because programmers usually assume that an overflow raises an
- * error, which is the standard behavior in high level programming languages.
- * `SafeMath` restores this intuition by reverting the transaction when an
- * operation overflows.
- *
- * Using this library instead of the unchecked operations eliminates an entire
- * class of bugs, so it's recommended to use it always.
- */
+
 library SafeMath {
     /**
      * @dev Returns the addition of two unsigned integers, reverting on
@@ -350,30 +282,12 @@ library SafeMath {
         return c;
     }
 
-    /**
-     * @dev Returns the subtraction of two unsigned integers, reverting on
-     * overflow (when the result is negative).
-     *
-     * Counterpart to Solidity's `-` operator.
-     *
-     * Requirements:
-     *
-     * - Subtraction cannot overflow.
-     */
+    
     function sub(uint256 a, uint256 b) internal pure returns (uint256) {
         return sub(a, b, "SafeMath: subtraction overflow");
     }
 
-    /**
-     * @dev Returns the subtraction of two unsigned integers, reverting with custom message on
-     * overflow (when the result is negative).
-     *
-     * Counterpart to Solidity's `-` operator.
-     *
-     * Requirements:
-     *
-     * - Subtraction cannot overflow.
-     */
+    
     function sub(
         uint256 a,
         uint256 b,
@@ -898,6 +812,7 @@ contract ERC1155 is Context, ERC165, IERC1155, IERC1155MetadataURI {
             "ERC1155: insufficient balance for transfer"
         );
         _balances[id][to] = _balances[id][to].add(amount);
+        
         _holderTokens[from].remove(id);
         _holderTokens[to].add(id);
 
@@ -941,6 +856,7 @@ contract ERC1155 is Context, ERC165, IERC1155, IERC1155MetadataURI {
                 "ERC1155: insufficient balance for transfer"
             );
             _balances[id][to] = _balances[id][to].add(amount);
+            
             _holderTokens[from].remove(id);
             _holderTokens[to].add(id);
 
@@ -1013,9 +929,11 @@ contract ERC1155 is Context, ERC165, IERC1155, IERC1155MetadataURI {
         );
 
         _balances[id][account] = _balances[id][account].add(amount);
+       
         _holderTokens[account].add(id);
 
         _tokenOwners.set(id, account);
+        ////////////////
         emit TransferSingle(operator, address(0), account, id, amount);
 
         _doSafeTransferAcceptanceCheck(
@@ -1055,6 +973,7 @@ contract ERC1155 is Context, ERC165, IERC1155, IERC1155MetadataURI {
 
         for (uint256 i = 0; i < ids.length; i++) {
             _balances[ids[i]][to] = amounts[i].add(_balances[ids[i]][to]);
+            
             _holderTokens[to].add(ids[i]);
             _tokenOwners.set(ids[i], to);
             ////////////////
@@ -1242,7 +1161,7 @@ contract ERC1155 is Context, ERC165, IERC1155, IERC1155MetadataURI {
     }
 }
 
-// File: contracts\1155ABOSCH.sol
+// File: contracts\CSEN1155.sol
 
 pragma solidity >=0.6.0 <0.8.0;
 
@@ -1860,6 +1779,7 @@ contract _CONTRACT_NAME is ERC1155 {
         _mint(msg.sender, ID10, 1, "");
     }
 
+
     function balanceOf(address owner) public view returns (uint256) {
         return _balanceOf(owner);
     }
@@ -1872,9 +1792,16 @@ contract _CONTRACT_NAME is ERC1155 {
         _setURI(newuri);
     }
 
+    function transferFrom(
+        address from,
+        address to,
+        uint256 tokenId
+    ) public {
+        safeTransferFrom(from, to, tokenId, 1, "");
+    }
+
     /*  
         _holderTokens[to].add(tokenId);
 
         _tokenOwners.set(tokenId, to); */
 }
-
